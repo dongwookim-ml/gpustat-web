@@ -218,6 +218,9 @@ def create_app(loop, *,
     app = web.Application()
     app.router.add_get('/', handler)
     app.add_routes([web.get('/ws', websocket_handler)])
+    app.router.add_static(
+                '/static/', path=(__PATH__ + '/' + 'static'), name='static'
+            )
 
     async def start_background_tasks(app):
         clients = spawn_clients(
